@@ -93,20 +93,23 @@ class ImageClassifyer(tk.Frame):
         tk.Frame.__init__(self, parent, *args, **kwargs)
 
         self.root = parent
-        self.root.wm_title("Classify Image")   
-        src = "./images/"
+        # self.root.wm_title("Classify Image")   
+        src = "./test_folder/"
 
         self.image_names = []
         self.list_images = []
-        # for d in os.listdir(src):
-        #     if d[0] != '.':
-        #         self.list_images.append(d)
+        self.image_folder = []
+        self.empty = []
+        self.not_empty = []
+
         for folder in os.listdir(src):
             if folder[0] != '.':
+                self.image_folder.append(src+folder+'/')
                 self.image_names.append(folder)
 
                 self.list_images.append(os.listdir(src+folder))
 
+        
         self.frame1 = tk.Frame(self.root, width=500, height=400, bd=2)
         self.frame1.grid(row=1, column=0)
 
@@ -119,35 +122,54 @@ class ImageClassifyer(tk.Frame):
         self.counter = 0
         self.max_count = len(self.list_images)-1
         self.next_image()
+        
 
     def leftKey(self, event):
-        print("left")
-        self.next_image()
+        self.empty.append(self.next_image())
+        print("moved to empty!")
+        print("empty: {}".format(self.empty))
+        
+        # self.next_image()
     def rightKey(self, evetnt):
-        print('right')
-        self.next_image()
+        self.not_empty.append(self.next_image())
+        print('moved to not_empty!')
+        print("not_empty array now: {}".format(self.not_empty))
+     
 
     def next_image(self):
+        
+        
 
         if self.counter > self.max_count:
             messagebox.showinfo("Congratz", "No More Images!")
             print("No more images")
-            print(self.list_images)
-            print(self.image_names)
+            print("List of Images: {}".format(self.list_images))
+            print("Image Names: {}".format(self.image_names))
+            print("Image Folders: {}".format(self.image_folder))
             exit()
         else:
-            im = Image.open("{}{}".format("./images/", self.list_images[self.counter][0]))
+            img_path = self.image_folder[self.counter] + self.list_images[self.counter][0]
+            im = Image.open("{}".format(self.image_folder[self.counter] + self.list_images[self.counter][0]))
+            # self.root.wm_title(self.image_names[self.counter-1])
+            # print(self.image_folder[self.counter])
+            # print(self.image_names[self.counter])
             if (490-im.size[0])<(390-im.size[1]):
                 width = 490
                 height = width*im.size[1]/im.size[0]
                 self.next_step(height, width)
+                # return self.image_names[self.counter-1]
+                print(img_path)
+                print(self.image_names[self.counter-1])
             else:
                 height = 390
                 width = height*im.size[0]/im.size[1]
                 self.next_step(height, width)
+                # return self.image_names[self.counter-1]
+                print(img_path)
+                print(self.image_names[self.counter-1])
 
     def next_step(self, height, width):
-        self.im = Image.open("{}{}".format("./images/", self.list_images[self.counter][0]))
+        self.im = Image.open("{}".format(self.image_folder[self.counter] + self.list_images[self.counter][0]))
         self.im.thumbnail((width, height), Image.ANTIALIAS)
         self.root.photo = ImageTk.PhotoImage(self.im)
         self.photo = ImageTk.PhotoImage(self.im)
