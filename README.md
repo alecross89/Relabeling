@@ -1,7 +1,7 @@
 # Relabeling
 
 ### Setup
-It is probably best to create a venv with `python3` (I used python 3.6).  If you're using `conda` then create a venv:
+It is probably best to create a venv with `python3` (I used `python 3.6`).  If you're using `conda` then create a venv:
 ``` 
 $ conda create -n my_venv_name python=3.6
 ```
@@ -24,15 +24,15 @@ Then load the images you would like to label in this directory.  The file struct
             │   ├── rgb.png        
             ├── ...
 ```
-As of right now you need to go into `relabel.py` and change `src='./test_folder/'` to `src='./image_folder_name/'`.  Once you start
-classifying images, they will be put into empty or not_empty folders (that will be created when the program starts).  
+
+### Running
+To run the program, you must include the path to the image folder w.r.t `relabel.py`, for example: 
+```
+$ python relabel.py './image_folder_name/'
+```
+Once you start classifying images, they will be put into empty or not_empty folders (those folders will be created when the program starts if they don't already exist).  
 
 To mark image as **Empty** - **Left Arrow**
 
 To mark image as **Not Empty** - **Right Arrow**
-
-To run the program: 
-```
-python relabel.py
-```
  
