@@ -1,9 +1,13 @@
 import tkinter as tk  
+from tkinter import *
 from PIL import Image, ImageTk  
 from tkinter.filedialog import askdirectory
 from tkinter import messagebox
+from tkinter import Text
 import os 
 import shutil
+import argparse
+
 
 class ImageClassifyer(tk.Frame):
 
@@ -11,9 +15,15 @@ class ImageClassifyer(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
 
         tk.Frame.__init__(self, parent, *args, **kwargs)
+        
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument("img_folder", help="path of image folder, ex - './image_folder/' ")
+        self.args = self.parser.parse_args()
+        # print(args.square**2)
 
         self.root = parent
-        src = "./test_folder/"
+        # src = "./test_folder/"
+        src = self.args.img_folder
         self.empty_path = './empty'
         self.not_empty_path = './not_empty'
 
@@ -46,13 +56,16 @@ class ImageClassifyer(tk.Frame):
         self.root.bind('<Left>', self.leftKey)
         self.root.bind('<Right>', self.rightKey)
 
+        text = Text(self.root)
+        text.insert(END, "bye vye")
+
         self.counter = 0
         self.max_count = len(self.list_images)-1
         self.display_image(500, 500)
         
     def display_image(self, width, height):
         try:   
-            self.root.wm_title(self.image_names[self.counter]) 
+            self.root.wm_title("... "+self.image_names[self.counter][-8:] + "     Left-Empty, Right-Not Empty") 
             self.im = Image.open("{}".format(self.image_folder[self.counter] + self.list_images[self.counter][0]))
             self.im.thumbnail((width, height), Image.ANTIALIAS)
             self.root.photo = ImageTk.PhotoImage(self.im)
