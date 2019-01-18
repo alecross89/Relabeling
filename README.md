@@ -30,20 +30,13 @@ Then load the images you would like to label in this directory.  The file struct
 ```
 
 ### Running
-
-**Mac/Linux:**
 To run the program, you must include the path to the image folder w.r.t `relabel.py`, for example: 
 ```
-$ python relabel.py './image_folder_name/'
+$ python relabel.py ./image_folder_name/
 ```
 You can test the program by running the following command and classifying 6 images:
 ```
-$ python relabel.py './test_folder/'
-```
-**Windows:**
-Its the same thing except leave out the quotes when putting in the path, for ex.:
-```
-$ python relabel.py ./image_folder_name/
+$ python relabel.py ./test_folder/
 ```
 Once you start classifying images, the image IDs will be placed in seperate text files depending on if they were labeled empty or not-empty.  
 
