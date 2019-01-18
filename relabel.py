@@ -24,6 +24,10 @@ class ImageClassifyer(tk.Frame):
         src = self.args.img_folder
         self.empty_path = './empty'
         self.not_empty_path = './not_empty'
+        self.done_path = './DONE'
+
+        if not os.path.exists(self.done_path):
+            os.mkdir(self.done_path)
 
         # if not os.path.exists(self.empty_path):
         #     os.mkdir(self.empty_path)
@@ -74,7 +78,7 @@ class ImageClassifyer(tk.Frame):
                 self.im.thumbnail((width, height), Image.ANTIALIAS)
                 self.cv1.delete("all")
                 self.cv1.create_image(0, 0, anchor = 'nw', image = self.photo)
-            print("current {}".format(self.image_folder[self.counter]))
+            # print("current {}".format(self.image_folder[self.counter]))
         except OSError as e:
             print(e)
 
@@ -85,8 +89,14 @@ class ImageClassifyer(tk.Frame):
             # uncomment next line to move images to folders
             # shutil.move(self.image_folder[self.counter], self.empty_path)
 
+
+
             with open("empty.txt", 'a') as text_file:
                 print(self.image_names[self.counter], file=text_file)
+            
+            shutil.move(self.image_folder[self.counter], self.done_path)
+
+            print('{} labeled as empty'.format(self.image_names[self.counter]))
 
             self.counter += 1
             self.display_image(500,500)
@@ -100,6 +110,10 @@ class ImageClassifyer(tk.Frame):
 
             with open("empty.txt", 'a') as text_file:
                 print(self.image_names[self.counter], file=text_file)
+            
+            shutil.move(self.image_folder[self.counter], self.done_path)
+
+            print('{} labeled as empty'.format(self.image_names[self.counter]))
             
             messagebox.showinfo("Congratz", "No More Images!")
             exit()
@@ -114,6 +128,10 @@ class ImageClassifyer(tk.Frame):
             with open("not_empty.txt", 'a') as text_file:
                 print(self.image_names[self.counter], file=text_file)
             
+            shutil.move(self.image_folder[self.counter], self.done_path)
+
+            print('{} labeled as not-empty'.format(self.image_names[self.counter]))
+            
             self.counter += 1
             self.display_image(500,500)
 
@@ -126,6 +144,10 @@ class ImageClassifyer(tk.Frame):
 
             with open("not_empty.txt", 'a') as text_file:
                 print(self.image_names[self.counter], file=text_file)
+
+            shutil.move(self.image_folder[self.counter], self.done_path)
+
+            print('{} labeled as not-empty'.format(self.image_names[self.counter]))
             
             messagebox.showinfo("Congratz", "No More Images!")
             exit()
