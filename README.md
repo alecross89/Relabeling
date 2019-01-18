@@ -45,7 +45,7 @@ Its the same thing except leave out the quotes when putting in the path, for ex.
 ```
 $ python relabel.py ./image_folder_name/
 ```
-Once you start classifying images, they will be put into empty or not_empty folders (those folders will be created when the program starts if they don't already exist).  
+Once you start classifying images, the image IDs will be placed in seperate text files depending on if they were labeled empty or not-empty.  
 
 To mark image as **Empty** - **Left Arrow**
 
