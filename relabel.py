@@ -19,19 +19,17 @@ class ImageClassifyer(tk.Frame):
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument("img_folder", help="path of image folder, ex - './image_folder/' ")
         self.args = self.parser.parse_args()
-        # print(args.square**2)
 
         self.root = parent
-        # src = "./test_folder/"
         src = self.args.img_folder
         self.empty_path = './empty'
         self.not_empty_path = './not_empty'
 
-        if not os.path.exists(self.empty_path):
-            os.mkdir(self.empty_path)
+        # if not os.path.exists(self.empty_path):
+        #     os.mkdir(self.empty_path)
     
-        if not os.path.exists(self.not_empty_path):
-            os.mkdir(self.not_empty_path)
+        # if not os.path.exists(self.not_empty_path):
+        #     os.mkdir(self.not_empty_path)
         
         self.image_names = []
         self.list_images = []
@@ -83,8 +81,12 @@ class ImageClassifyer(tk.Frame):
     def leftKey(self, event):
 
         if self.counter < self.max_count:
+            
+            # uncomment next line to move images to folders
+            # shutil.move(self.image_folder[self.counter], self.empty_path)
 
-            shutil.move(self.image_folder[self.counter], self.empty_path)
+            with open("empty.txt", 'a') as text_file:
+                print(self.image_names[self.counter], file=text_file)
 
             self.counter += 1
             self.display_image(500,500)
@@ -93,7 +95,11 @@ class ImageClassifyer(tk.Frame):
 
             self.display_image(500,500)
 
-            shutil.move(self.image_folder[self.counter], self.empty_path)
+            # uncomment next line to move images to folders
+            # shutil.move(self.image_folder[self.counter], self.empty_path)
+
+            with open("empty.txt", 'a') as text_file:
+                print(self.image_names[self.counter], file=text_file)
             
             messagebox.showinfo("Congratz", "No More Images!")
             exit()
@@ -101,8 +107,12 @@ class ImageClassifyer(tk.Frame):
     def rightKey(self, event):
 
         if self.counter < self.max_count:
+            
+            # uncomment next line to move images to folders
+            # shutil.move(self.image_folder[self.counter], self.not_empty_path)
 
-            shutil.move(self.image_folder[self.counter], self.not_empty_path)
+            with open("not_empty.txt", 'a') as text_file:
+                print(self.image_names[self.counter], file=text_file)
             
             self.counter += 1
             self.display_image(500,500)
@@ -111,7 +121,11 @@ class ImageClassifyer(tk.Frame):
             
             self.display_image(500,500)
             
-            shutil.move(self.image_folder[self.counter], self.not_empty_path)
+            # uncomment next line to move images to folders
+            # shutil.move(self.image_folder[self.counter], self.not_empty_path)
+
+            with open("not_empty.txt", 'a') as text_file:
+                print(self.image_names[self.counter], file=text_file)
             
             messagebox.showinfo("Congratz", "No More Images!")
             exit()
